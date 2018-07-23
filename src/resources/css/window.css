@@ -13,7 +13,7 @@ body {
 }
 
 .tab {
-    background-color: #f1f1f1;
+    background: #ccc;
     margin: 0% 0%;
     max-height: 2em;
     overflow: hidden;
@@ -22,7 +22,7 @@ body {
 }
 
 .tab button {
-    background-color: inherit;
+    background: inherit;
     border: none;
     cursor: pointer;
     display: block;
@@ -41,7 +41,7 @@ body {
 }
 
 .tab button.active {
-    background: #ccc;
+    background: #f1f1f1;
 }
 
 .tab-links {
@@ -49,8 +49,7 @@ body {
 }
 
 .tab-content {
-    border: 1px solid #ccc;
-    border-top: none;
+    background: #f1f1f1;
     display: none;
     padding: 6px 12px;
     height: 100%;
