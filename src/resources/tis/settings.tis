@@ -1,3 +1,5 @@
+include("keybindings.tis");
+
 namespace settings {
 
     function showContent(event, tabName) {
@@ -15,6 +17,15 @@ namespace settings {
             display: "block";
         };
         event.target.attributes.addClass("active");
+        activateTabScripts(tabName); 
+    }
+
+    function activateTabScripts(tabName) {
+        if (tabName == "Keybindings") {
+            keybindings.installKeybindingsListener();
+            keybindings.addSaveDataHandler();
+            keybindings.addCancelHandler();
+        }
     }
 
 }
