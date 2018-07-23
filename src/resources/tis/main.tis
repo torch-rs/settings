@@ -1,5 +1,19 @@
+include("settings.tis");
 include("window.tis");
 
 function self.ready() {
     window.resize();
+    self.$(#keybindings-tab).on("click", function(evt) {
+        settings.showContent(evt, "Keybindings");
+    });
+    self.$(#plugins-tab).on("click", function(evt) {
+        settings.showContent(evt, "Plugins");
+    });
+    self.$(#ui-tab).on("click", function(evt) {
+        settings.showContent(evt, "UI");
+    });
+    self.$(#about-tab).on("click", function(evt) {
+        settings.showContent(evt, "About");
+    });
+    self.$(#keybindings-tab).sendEvent("click");
 }

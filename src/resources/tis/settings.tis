@@ -1,0 +1,20 @@
+namespace settings {
+
+    function showContent(event, tabName) {
+        var tabContents = self.selectAll(".tab-content");
+        for (var i in tabContents) {
+            i.style.set {
+                display: "none";
+            };
+        }
+        var tabLinks = self.selectAll(".tab-links");
+        for (var i in tabLinks) {
+            i.attributes.removeClass("active");
+        }
+        self.$(#{tabName}).style.set {
+            display: "block";
+        };
+        event.target.attributes.addClass("active");
+    }
+
+}
