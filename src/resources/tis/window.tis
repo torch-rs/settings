@@ -1,0 +1,22 @@
+namespace window {
+
+    var (_, __, screenWidth, screenHeight) = view.screenBox(#workarea);
+    
+    var SETTINGS_WIDTH = ((screenWidth / 2) + 3) / 4 * 4;
+    var SETTINGS_HEIGHT = screenHeight / 2;
+    
+    function resize() {
+        var body = self.select("body");
+        var (_screenXCor, _screenYCor, screenWidth, screenHeight) = view.screenBox(#workarea);
+        var topLeftX = (screenWidth - SETTINGS_WIDTH) / 2;
+        var topLeftY = (screenHeight - SETTINGS_HEIGHT) / 2; 
+
+        body.style.set {
+            height: px(SETTINGS_HEIGHT);
+            width: px(SETTINGS_WIDTH);
+        };
+    
+        view.move(topLeftX, topLeftY, SETTINGS_WIDTH, SETTINGS_HEIGHT, true);
+    }
+
+}
