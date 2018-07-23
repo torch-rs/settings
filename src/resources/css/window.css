@@ -1,0 +1,57 @@
+html {
+    background: white;
+    margin: 0% 0%;
+    overflow-x: hidden;
+    padding: 0px;
+}
+
+body {
+    height: 100%;
+    margin: 0% 0%;
+    padding: 0px;
+    width: 100%;
+}
+
+.tab {
+    background-color: #f1f1f1;
+    margin: 0% 0%;
+    max-height: 2em;
+    overflow: hidden;
+    padding: 0px;
+    width: 100%;
+}
+
+.tab button {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-size: 13px;
+    margin: 0% 0%;
+    outline: none;
+    padding: 0px;
+    text-align: center;
+    transition: 0.3s;
+    width: 25vw;
+}
+
+.tab button:hover {
+    background: #ddd;
+}
+
+.tab button.active {
+    background: #ccc;
+}
+
+.tab-links {
+    behavior: clickable;
+}
+
+.tab-content {
+    border: 1px solid #ccc;
+    border-top: none;
+    display: none;
+    padding: 6px 12px;
+    height: 100%;
+}
