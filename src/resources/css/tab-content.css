@@ -1,3 +1,14 @@
+.action-button {
+    bottom: 0;
+    padding: 0px 10px 10px 0px;
+    position: absolute;
+    right: 0;
+}
+
+.action-button button {
+    border: 1px solid #ccc;
+}
+
 .app-title {
     text-align: center;
 }
@@ -5,4 +16,13 @@
 .author {
     font-style: italic;
     text-align: center;
+}
+
+.clear-float {
+    clear: right;
+}
+
+input.keybindings-input {
+    border: 1px solid #ddd;
+    float: right;
 }
