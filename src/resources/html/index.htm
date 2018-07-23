@@ -1,0 +1,24 @@
+<html window-icon="https://sciter.com/wp-content/themes/sciter/!images/favicon.ico">
+    <head>
+        <link href="this://app/css/tab-content.css" rel="stylesheet" media="screen">
+        <link href="this://app/css/window.css" rel="stylesheet" media="screen">
+        <script type="text/tiscript">
+         include "this://app/tis/main.tis"
+        </script>
+        <title>Settings</title>
+    </head>
+
+    <body>
+        <div class="tab">
+            <button id="keybindings-tab" class="tab-links">Keybindings</button>
+            <button id="plugins-tab" class="tab-links">Plugins</button>
+            <button id="ui-tab" class="tab-links">UI</button>
+            <button id="about-tab" class="tab-links">About</button>
+        </div>
+
+        <include src="keybindings.htm" />
+        <include src="plugins.htm" />
+        <include src="ui.htm" />
+        <include src="about.htm" />
+    </body>
+</html>
