@@ -1,0 +1,64 @@
+namespace keybindings {
+
+    function installKeybindingsListener() {
+        var isMacOS = view.get_os() == "Mac OS";
+        var keybindingsInputs = self.selectAll(".keybindings-input");
+        var keycodes = {};
+        for (var (name, code) in Event) {
+            if (name.toString() like "VK_*") {
+                keycodes[code] = name.toString()[3..];
+            }
+        }
+        for (var i in keybindingsInputs) {
+            i.on("keydown", function(event) {
+                stdout.println(event.keyCode);
+                var value = "";
+                if (event.ctrlKey) {
+                    stdout.println("Called");
+                    value += "Ctrl + ";
+                }
+                if (event.altKey) {
+                    value += "Alt + ";
+                }
+                if (event.shiftKey) {
+                    value += "Shift + ";
+                }
+                if (isMacOS && event.commandKey) {
+                    value += "CMD + ";
+                }
+                if (!isMacOS && event.commandKey) {
+                    value += "WIN + ";
+                }
+                if (event.keyCode != event.VK_CONTROL) {
+                    value += keycodes[event.keyCode] + " + "; 
+                }
+                this.value = value[..value.length-3]; 
+                return true;
+            });
+        }
+    }
+
+    function addSaveDataHandler() {
+        var saveButton = self.select("#keybindings-save");
+        saveButton.on("click", saveData);
+    }
+
+    function addCancelHandler() {
+        var cancelButton = self.select("#keybindings-cancel");
+        cancelButton.on("click", function() {
+            view.close();
+        });
+    }
+
+    function saveData() {
+        var keybindingsConfig = {};
+        keybindingsConfig["show-window"] = self.select("#show-window").value;
+        keybindingsConfig["hide-window"] = self.select("#hide-window").value;
+        keybindingsConfig["previous-option"] = self.select("#previous-option").value;
+        keybindingsConfig["next-option"] = self.select("#next-option").value;
+        keybindingsConfig["execute-primary-action"] = self.select("#execute-primary-action").value;
+        keybindingsConfig["execute-secondary-action"] = self.select("#execute-secondary-action").value;
+        view.save_keybindings_config(keybindingsConfig);
+    }
+    
+}
