@@ -1,9 +1,13 @@
+extern crate config;
 #[macro_use]
 extern crate sciter;
 
 mod load_handler;
 
+use config::Config;
+use config::keybindings_config;
 use sciter::Value;
+use std::collections::HashMap;
 
 struct EventHandler;
 
@@ -21,14 +25,33 @@ impl EventHandler {
         }
     }
 
-    fn save_keybindings_config(&self, config: sciter::Value) -> bool {
-        println!("{}", config.get_item("show-window"));
-        println!("{}", config.get_item("hide-window"));
-        println!("{}", config.get_item("previous-option"));
-        println!("{}", config.get_item("next-option"));
-        println!("{}", config.get_item("execute-primary-action"));
-        println!("{}", config.get_item("execute-secondary-action"));
-        true
+    fn get_keybindings_config(&self) -> Value {
+        let mut config_to_send: Value = Value::map();
+        let config = keybindings_config::KeybindingsConfig::new(String::from("keybindings.yaml"));
+        config_to_send.set_item("show-window", config.get(String::from("show-window")).unwrap());
+        config_to_send.set_item("hide-window", config.get(String::from("hide-window")).unwrap());
+        config_to_send.set_item("previous-option", config.get(String::from("previous-option")).unwrap());
+        config_to_send.set_item("next-option", config.get(String::from("next-option")).unwrap());
+        config_to_send.set_item("execute-primary-action", config.get(String::from("execute-primary-action")).unwrap());
+        config_to_send.set_item("execute-secondary-action",
+                                config.get(String::from("execute-secondary-action")).unwrap());
+        config_to_send
+    }
+
+    fn save_keybindings_config(&self, new_config: sciter::Value) -> bool {
+        let mut config_data = HashMap::new();
+        config_data.insert(String::from("show-window"), new_config.get_item("show-window").as_string().unwrap());
+        config_data.insert(String::from("hide-window"), new_config.get_item("hide-window").as_string().unwrap());
+        config_data.insert(String::from("previous-option"), new_config.get_item("previous-option").as_string().unwrap());
+        config_data.insert(String::from("next-option"), new_config.get_item("next-option").as_string().unwrap());
+        config_data.insert(String::from("execute-primary-action"),
+                           new_config.get_item("execute-primary-action").as_string().unwrap());
+        config_data.insert(String::from("execute-secondary-action"),
+                           new_config.get_item("execute-secondary-action").as_string().unwrap());
+
+        let mut config = keybindings_config::KeybindingsConfig::new(String::from("keybindings.yaml"));
+        config.set(config_data);
+        config.save().is_ok()
     }
 
 }
@@ -38,6 +61,7 @@ impl sciter::EventHandler for EventHandler {
 
     dispatch_script_call! {
         fn get_os();
+        fn get_keybindings_config();
         fn save_keybindings_config(Value);
     }
 
