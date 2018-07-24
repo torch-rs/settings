@@ -1,6 +1,25 @@
 namespace keybindings {
 
+    var handlersAdded = false;
+
+    function loadConfig() {
+        var config = view.get_keybindings_config();
+        self.select("#show-window").value = config["show-window"];
+        self.select("#hide-window").value = config["hide-window"];
+        self.select("#previous-option").value = config["previous-option"];
+        self.select("#next-option").value = config["next-option"];
+        self.select("#execute-primary-action").value = config["execute-primary-action"];
+        self.select("#execute-secondary-action").value = config["execute-secondary-action"];
+    }
+
+    function setHandlersAdded(addedOrNot) {
+        handlersAdded = addedOrNot;
+    }
+
     function installKeybindingsListener() {
+        if (handlersAdded) {
+            return;
+        }
         var isMacOS = view.get_os() == "Mac OS";
         var keybindingsInputs = self.selectAll(".keybindings-input");
         var keycodes = {};
@@ -11,7 +30,6 @@ namespace keybindings {
         }
         for (var i in keybindingsInputs) {
             i.on("keydown", function(event) {
-                stdout.println(event.keyCode);
                 var value = "";
                 if (event.ctrlKey) {
                     stdout.println("Called");
@@ -39,11 +57,17 @@ namespace keybindings {
     }
 
     function addSaveDataHandler() {
+        if (handlersAdded) {
+            return;
+        }
         var saveButton = self.select("#keybindings-save");
         saveButton.on("click", saveData);
     }
 
     function addCancelHandler() {
+        if (handlersAdded) {
+            return;
+        }
         var cancelButton = self.select("#keybindings-cancel");
         cancelButton.on("click", function() {
             view.close();
@@ -58,7 +82,26 @@ namespace keybindings {
         keybindingsConfig["next-option"] = self.select("#next-option").value;
         keybindingsConfig["execute-primary-action"] = self.select("#execute-primary-action").value;
         keybindingsConfig["execute-secondary-action"] = self.select("#execute-secondary-action").value;
-        view.save_keybindings_config(keybindingsConfig);
+        var success = view.save_keybindings_config(keybindingsConfig);
+        if (success) {
+            view.msgbox {
+                type: #information,
+                title: "",
+                content: "Configuration was saved successfully!",
+                buttons: [
+                    {id: #ok, text: "Ok", role: "cancel-button"}
+                ]
+            };
+        } else {
+            view.msgbox {
+                type: #information,
+                title: "",
+                content: "Configuration was saved unsuccessfully...",
+                buttons: [
+                    {id: #ok, text: "Ok", role: "cancel-button"}
+                ]
+            };
+        }
     }
     
 }
