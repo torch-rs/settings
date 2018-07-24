@@ -25,6 +25,8 @@ namespace settings {
             keybindings.installKeybindingsListener();
             keybindings.addSaveDataHandler();
             keybindings.addCancelHandler();
+            keybindings.setHandlersAdded(true);
+            keybindings.loadConfig();
         }
     }
 
