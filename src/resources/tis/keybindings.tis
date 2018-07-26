@@ -4,8 +4,7 @@ namespace keybindings {
 
     function loadConfig() {
         var config = view.get_keybindings_config();
-        self.select("#show-window").value = config["show-window"];
-        self.select("#hide-window").value = config["hide-window"];
+        self.select("#close-window").value = config["close-window"];
         self.select("#previous-option").value = config["previous-option"];
         self.select("#next-option").value = config["next-option"];
         self.select("#execute-primary-action").value = config["execute-primary-action"];
@@ -76,8 +75,7 @@ namespace keybindings {
 
     function saveData() {
         var keybindingsConfig = {};
-        keybindingsConfig["show-window"] = self.select("#show-window").value;
-        keybindingsConfig["hide-window"] = self.select("#hide-window").value;
+        keybindingsConfig["close-window"] = self.select("#close-window").value;
         keybindingsConfig["previous-option"] = self.select("#previous-option").value;
         keybindingsConfig["next-option"] = self.select("#next-option").value;
         keybindingsConfig["execute-primary-action"] = self.select("#execute-primary-action").value;

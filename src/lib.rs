@@ -28,8 +28,7 @@ impl EventHandler {
     fn get_keybindings_config(&self) -> Value {
         let mut config_to_send: Value = Value::map();
         let config = keybindings_config::KeybindingsConfig::new(String::from("keybindings.yaml"));
-        config_to_send.set_item("show-window", config.get(String::from("show-window")).unwrap());
-        config_to_send.set_item("hide-window", config.get(String::from("hide-window")).unwrap());
+        config_to_send.set_item("close-window", config.get(String::from("close-window")).unwrap());
         config_to_send.set_item("previous-option", config.get(String::from("previous-option")).unwrap());
         config_to_send.set_item("next-option", config.get(String::from("next-option")).unwrap());
         config_to_send.set_item("execute-primary-action", config.get(String::from("execute-primary-action")).unwrap());
@@ -40,8 +39,7 @@ impl EventHandler {
 
     fn save_keybindings_config(&self, new_config: sciter::Value) -> bool {
         let mut config_data = HashMap::new();
-        config_data.insert(String::from("show-window"), new_config.get_item("show-window").as_string().unwrap());
-        config_data.insert(String::from("hide-window"), new_config.get_item("hide-window").as_string().unwrap());
+        config_data.insert(String::from("close-window"), new_config.get_item("close-window").as_string().unwrap());
         config_data.insert(String::from("previous-option"), new_config.get_item("previous-option").as_string().unwrap());
         config_data.insert(String::from("next-option"), new_config.get_item("next-option").as_string().unwrap());
         config_data.insert(String::from("execute-primary-action"),
