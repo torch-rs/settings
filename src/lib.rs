@@ -27,13 +27,13 @@ impl EventHandler {
 
     fn get_keybindings_config(&self) -> Value {
         let mut config_to_send: Value = Value::map();
-        let config = keybindings_config::KeybindingsConfig::new(String::from("keybindings.yaml"));
-        config_to_send.set_item("close-window", config.get(String::from("close-window")).unwrap());
-        config_to_send.set_item("previous-option", config.get(String::from("previous-option")).unwrap());
-        config_to_send.set_item("next-option", config.get(String::from("next-option")).unwrap());
-        config_to_send.set_item("execute-primary-action", config.get(String::from("execute-primary-action")).unwrap());
+        let config = keybindings_config::KeybindingsConfig::new("keybindings.yaml");
+        config_to_send.set_item("close-window", config.get("close-window").unwrap());
+        config_to_send.set_item("previous-option", config.get("previous-option").unwrap());
+        config_to_send.set_item("next-option", config.get("next-option").unwrap());
+        config_to_send.set_item("execute-primary-action", config.get("execute-primary-action").unwrap());
         config_to_send.set_item("execute-secondary-action",
-                                config.get(String::from("execute-secondary-action")).unwrap());
+                                config.get("execute-secondary-action").unwrap());
         config_to_send
     }
 
@@ -47,7 +47,7 @@ impl EventHandler {
         config_data.insert(String::from("execute-secondary-action"),
                            new_config.get_item("execute-secondary-action").as_string().unwrap());
 
-        let mut config = keybindings_config::KeybindingsConfig::new(String::from("keybindings.yaml"));
+        let mut config = keybindings_config::KeybindingsConfig::new("keybindings.yaml");
         config.set(config_data);
         config.save().is_ok()
     }
