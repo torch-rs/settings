@@ -1,6 +1,5 @@
 extern crate sciter;
 
-
 use sciter::host;
 
 pub struct LoadHandler {
