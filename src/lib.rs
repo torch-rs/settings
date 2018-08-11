@@ -70,7 +70,7 @@ pub fn show() -> bool {
     let handler = load_handler::LoadHandler::new(resources);
 
     let mut settings_window = sciter::window::Builder::main_window()
-        .fixed()
+        .resizeable()
         .with_title()
         .create();
 
