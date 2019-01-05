@@ -2,6 +2,8 @@ include("keybindings.tis");
 
 namespace settings {
 
+    var settingsModified = false;
+
     function showContent(event, tabName) {
         var tabContents = self.selectAll(".tab-content");
         for (var i in tabContents) {
@@ -28,6 +30,21 @@ namespace settings {
             keybindings.setHandlersAdded(true);
             keybindings.loadConfig();
         }
+    }
+
+    function setSettingsModified(isModified) {
+        settingsModified = isModified;
+
+        var cancelQuitButton = self.select("#keybindings-cancelquit");
+        if (isModified) {
+            cancelQuitButton.value = "Cancel"
+        } else {
+            cancelQuitButton.value = "Quit"
+        }
+    }
+
+    function settingsIsModified() {
+        return settingsModified;
     }
 
 }

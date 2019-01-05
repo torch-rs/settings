@@ -4,16 +4,36 @@ include("window.tis");
 function self.ready() {
     window.resize();
     self.$(#keybindings-tab).on("click", function(evt) {
-        settings.showContent(evt, "Keybindings");
+        switchWindow(evt, "Keybindings")
     });
     self.$(#plugins-tab).on("click", function(evt) {
-        settings.showContent(evt, "Plugins");
+        switchWindow(evt, "Plugins");
     });
     self.$(#ui-tab).on("click", function(evt) {
-        settings.showContent(evt, "UI");
+        switchWindow(evt, "UI");
     });
     self.$(#about-tab).on("click", function(evt) {
-        settings.showContent(evt, "About");
+        switchWindow(evt, "About");
     });
     self.$(#keybindings-tab).sendEvent("click");
+}
+
+function switchWindow(evt, windowTitle) {
+    if (settings.settingsIsModified()) {
+        var answer = view.msgbox {
+            type: #warning,
+            title: "",
+            content: "You have not save the changes.  Do you still want to proceed?",
+            buttons: [
+                {id: #yes, text: "Yes"},
+                {id: #no, text: "No", role: "cancel-button"}
+            ]
+        };
+        if (answer == #yes) {
+            settings.showContent(evt, windowTitle);
+            settings.setSettingsModified(false);
+        }
+    } else {
+        settings.showContent(evt, windowTitle);
+    }
 }
