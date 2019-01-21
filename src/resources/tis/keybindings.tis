@@ -16,7 +16,7 @@ namespace keybindings {
     function setHandlersAdded(addedOrNot) {
         handlersAdded = addedOrNot;
     }
-
+ 
     function installKeybindingsListener() {
         if (handlersAdded) {
             return;
@@ -33,7 +33,6 @@ namespace keybindings {
             i.on("keydown", function(event) {
                 var value = "";
                 if (event.ctrlKey) {
-                    stdout.println("Called");
                     value += "Ctrl + ";
                 }
                 if (event.altKey) {
